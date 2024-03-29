@@ -1,0 +1,37 @@
+local qiProbabilities = {
+    {qiRange = {30, 40}, probability = 0.0001},
+    {qiRange = {40, 55}, probability = 0.001},
+    {qiRange = {55, 70}, probability = 0.021},
+    {qiRange = {70, 85}, probability = 0.136},
+    {qiRange = {85, 100}, probability = 0.341},
+    {qiRange = {100, 115}, probability = 0.341},
+    {qiRange = {115, 130}, probability = 0.136},
+    {qiRange = {130, 145}, probability = 0.021},
+    {qiRange = {145, 180}, probability = 0.001},
+    {qiRange = {180, 250}, probability = 0.0001}
+}
+
+local function calcularQI()
+    local randomValue = math.random()
+    local accumulatedProbability = 0
+
+    for _, qiData in ipairs(qiProbabilities) do
+        accumulatedProbability = accumulatedProbability + qiData.probability
+        if randomValue <= accumulatedProbability then
+            local qi = math.random(qiData.qiRange[1], qiData.qiRange[2])
+            return qi
+        end
+    end
+    return 100
+end
+
+local function exibirQI()
+    local qiObtido = calcularQI()
+    print("Seu QI estimado é:", qiObtido)
+end
+
+while true do
+    io.write("Pressione Enter para gerar um novo QI...")
+    io.read()
+    exibirQI()
+end
